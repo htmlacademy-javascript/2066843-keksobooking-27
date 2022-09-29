@@ -9,9 +9,9 @@ const getRandom = function(min, max, floatNumber){
     return min;
   }
 
-  let randomNumbder = (Math.random() * (max - min) + min).toFixed(floatNumber);
+  const randomNumbder = (Math.random() * (max - min) + min).toFixed(floatNumber);
   return parseFloat(randomNumbder);
 };
 
-const result = getRandom(5, 40, 10);
+
 
