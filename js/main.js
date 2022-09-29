@@ -13,5 +13,4 @@ const getRandom = function(min, max, floatNumber){
   return parseFloat(randomNumbder);
 };
 
-
-
+getRandom(2, 120, 2);
