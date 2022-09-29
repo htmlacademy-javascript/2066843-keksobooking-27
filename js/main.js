@@ -5,7 +5,7 @@ let getRandom = function(min, max, floatNumber){
     let c = min;
     min = max;
     max = c;
-  } else if (min == max){
+  } else if (min === max){
     return min;
   } else {
   }
