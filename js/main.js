@@ -1,18 +1,17 @@
-let getRandom = function(min, max, floatNumber){
+const getRandom = function(min, max, floatNumber){
   if(min < 0 || max < 0 || floatNumber < 0){
-    return NaN
+    return NaN;
   } else if (min > max){
-    let c = min;
+    const c = min;
     min = max;
     max = c;
   } else if (min === max){
     return min;
-  } else {
   }
 
-  const randomNumbder = (Math.random() * (max - min) + min).toFixed(floatNumber);
+  let randomNumbder = (Math.random() * (max - min) + min).toFixed(floatNumber);
   return parseFloat(randomNumbder);
-}
+};
 
-let result = getRandom(5, 40, 10);
-console.log(result);
+const result = getRandom(5, 40, 10);
+
