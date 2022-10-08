@@ -61,8 +61,8 @@ const getRandomShuffledArray = function(array) {
 };
 
 //  location
-const lat = getRandomPositiveFloat(35.65, 35.7, 5);
-const lng = getRandomPositiveFloat(139.7, 139.8, 5);
+// const lat = getRandomPositiveFloat(35.65, 35.7, 5);
+// const lng = getRandomPositiveFloat(139.7, 139.8, 5);
 
 // const createLocation = () => {
 // return lat + ", " + lng;
@@ -84,7 +84,7 @@ function getRandomPositiveIntegerWithZero (a, b) {
 // Author
 function createAuthor() {
   return `img/avatars/user${getRandomPositiveIntegerWithZero(1,10)}.png`;
-  };
+}
 
 // Offer
 const TITLE = [
@@ -149,14 +149,13 @@ const DESCRIPTION = [
 //  new URL('https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg'),
 //  new URL('https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg')
 // ]
-const PHOTOS  = [
+const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
+];
 
- ];
-
-const createOffer = () => {
+function createOffer() {
   return {
     title: getRamdomArrayElement(TITLE),
     address: `${getRandomPositiveFloat(35.65, 35.7, 5)} , ${getRandomPositiveFloat(139.7, 139.8, 5)}`,
@@ -173,7 +172,7 @@ const createOffer = () => {
 };
 
 // Object
-const createObj = () => {
+function createObj() {
   return {
     author: createAuthor(),
     offer: createOffer(),
@@ -182,7 +181,7 @@ const createObj = () => {
 };
 
 const obj = Array.from({length: 10}, createObj);
-console.log(obj);
+// console.log(obj);
 
 // function createManyObjects(a) {
 //   let arrayWithObjects = [];
