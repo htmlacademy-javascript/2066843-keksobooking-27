@@ -33,14 +33,14 @@ function getRandomPositiveFloat (a, b, digits) {
 }
 
 function getRamdomArrayElement (elements) {
-  return elements[getRandomPositiveInteger(0, elements.length - 1)]
+  return elements[getRandomPositiveInteger(0, elements.length - 1)];
 }
 
 function shuffle(array) {
-  let currentIndex = array.length,  randomIndex;
+  let currentIndex = array.length, randomIndex;
 
   // While there remain elements to shuffle.
-  while (currentIndex != 0) {
+  while (currentIndex !== 0) {
 
     // Pick a remaining element.
     randomIndex = Math.floor(Math.random() * currentIndex);
@@ -54,44 +54,37 @@ function shuffle(array) {
 }
 
 const getRandomShuffledArray = function(array) {
-  let index = getRandomPositiveInteger(0, array.length - 1);
+  const index = getRandomPositiveInteger(0, array.length - 1);
   array = shuffle(array);
-  let shuffled = array.slice(0, index)
+  const shuffled = array.slice(0, index);
   return shuffled;
-}
-
-
+};
 
 //  location
-let lat = getRandomPositiveFloat(35.65, 35.7, 5);
-let lng = getRandomPositiveFloat(139.7, 139.8, 5);
+const lat = getRandomPositiveFloat(35.65, 35.7, 5);
+const lng = getRandomPositiveFloat(139.7, 139.8, 5);
 
-const createLocation = () => {
-return lat + ", " + lng;
-}
+// const createLocation = () => {
+// return lat + ", " + lng;
+// };
 
 function getRandomPositiveIntegerWithZero (a, b) {
   if (a < 0 || b < 0) {
     return NaN;
   }
-
   const lower = Math.ceil(Math.min(a, b));
   const upper = Math.floor(Math.max(a, b));
-
   const result = Math.floor(Math.random() * (upper - lower + 1) + lower);
-
   if (result < 10) {
-    return "0" + result;
+    return `0${result}`;
   }
   return result;
 }
 
 // Author
-
-const createAuthor = () => {
+function createAuthor() {
   return `img/avatars/user${getRandomPositiveIntegerWithZero(1,10)}.png`;
-  }
-
+  };
 
 // Offer
 const TITLE = [
@@ -108,9 +101,7 @@ const TITLE = [
 ];
 
 // const ADDRESS = Array.from({length: 10}, createLocation);
-
 // const PRICE = Array.from({length: 10}, getRandomPositiveNumber)
-
 const TYPE = [
   'palace',
   'flat',
@@ -123,13 +114,13 @@ const CHECKIN = [
   '12:00',
   '13:00',
   '14:00'
-]
+];
 
 const CHECKOUT = [
   '12:00',
   '13:00',
   '14:00'
-]
+];
 
 const FEATURES = [
   'wifi',
@@ -138,7 +129,7 @@ const FEATURES = [
   'washer',
   'elevator',
   'conditioner',
-]
+];
 
 const DESCRIPTION = [
   'Take an early morning stroll and enjoy the Trevi Fountain without the tourists. Wander around the historic streets while the city sleeps, then head back for a morning coffee at this urban-chic studio with a suspended loft bedroom.',
@@ -153,23 +144,19 @@ const DESCRIPTION = [
   'This modern, sun-drenched apartment offers a tranquil residential vibe alongside quick, easy access to the downtown areas. Admire the crisp, contemporary decor of the open-plan living space and take in the peaceful surroundings from the cute terrace',
   'A lovely space to unwind and relax after a busy day whether it is work or play. Awake refreshed and ready for a day exploring the city via this clean, sunny apartment with impressive views. Head out and wander through the nearby farmers’ market and pick up local ingredients to later craft a meal in the fully stocked kitchen.',
 ];
-
 // const PHOTOS  = [
 //  new URL('https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg'),
 //  new URL('https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg'),
 //  new URL('https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg')
-
 // ]
-
 const PHOTOS  = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
 
- ]
+ ];
 
 const createOffer = () => {
-
   return {
     title: getRamdomArrayElement(TITLE),
     address: `${getRandomPositiveFloat(35.65, 35.7, 5)} , ${getRandomPositiveFloat(139.7, 139.8, 5)}`,
@@ -183,11 +170,9 @@ const createOffer = () => {
     description: getRamdomArrayElement(DESCRIPTION),
     photos: getRandomShuffledArray(PHOTOS)
   };
-}
-
+};
 
 // Object
-
 const createObj = () => {
   return {
     author: createAuthor(),
@@ -195,8 +180,6 @@ const createObj = () => {
     location: `lat: ${getRandomPositiveFloat(35.65, 35.7, 5)} , lng:${getRandomPositiveFloat(139.7, 139.8, 5)}`
   };
 };
-
-
 
 const obj = Array.from({length: 10}, createObj);
 console.log(obj);
