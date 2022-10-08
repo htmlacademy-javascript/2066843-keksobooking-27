@@ -180,7 +180,5 @@ function createObj() {
   };
 }
 
-
+createObj();
 // const obj = Array.from({length: 10}, createObj);
-
-
