@@ -169,7 +169,7 @@ function createOffer() {
     description: getRamdomArrayElement(DESCRIPTION),
     photos: getRandomShuffledArray(PHOTOS)
   };
-};
+}
 
 // Object
 function createObj() {
@@ -178,21 +178,9 @@ function createObj() {
     offer: createOffer(),
     location: `lat: ${getRandomPositiveFloat(35.65, 35.7, 5)} , lng:${getRandomPositiveFloat(139.7, 139.8, 5)}`
   };
-};
+}
 
-const obj = Array.from({length: 10}, createObj);
-// console.log(obj);
 
-// function createManyObjects(a) {
-//   let arrayWithObjects = [];
-//   arrayWithObjects.push(createObj());
-//   for(i = 0; i < a; i++){
-//     let anotherObj = createObj();
-//     for(j = 1; j < a; j++)
-//     while(arrayWithObjects[i].author == anotherObj.author && arrayWithObjects[i].location == anotherObj.location){
-//     anotherObj = createObj();
-//     }
-//   arrayWithObjects.push(anotherObj)
-//   }
-//   return arrayWithObjects;
-//   }
+// const obj = Array.from({length: 10}, createObj);
+
+
