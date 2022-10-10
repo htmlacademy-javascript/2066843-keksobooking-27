@@ -19,7 +19,6 @@ function getRandomPositiveInteger (a, b) {
   return Math.floor(result);
 }
 
-
 function getRandomPositiveFloat (a, b, digits) {
   if (a < 0 || b < 0 || digits < 0) {
     return NaN;
@@ -59,23 +58,6 @@ const getRandomShuffledArray = function(array) {
   const shuffled = array.slice(0, index);
   return shuffled;
 };
-
-function getRandomPositiveIntegerWithZero (a, b) {
-  if (a < 0 || b < 0) {
-    return NaN;
-  }
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-  const result = Math.floor(Math.random() * (upper - lower + 1) + lower);
-  if (result < 10) {
-    return `0${result}`;
-  }
-  return `${result}`;
-}
-
-// Author
-
-
 
 // Offer
 const TITLE = [
@@ -158,16 +140,16 @@ function createOffer() {
 
 //Location
 function createLocation() {
-  let lat = getRandomPositiveFloat(35.65, 35.7, 5);
-  let lng = getRandomPositiveFloat(139.7, 139.8, 5);
+  const lat = getRandomPositiveFloat(35.65, 35.7, 5);
+  const lng = getRandomPositiveFloat(139.7, 139.8, 5);
   return [lat, lng];
 }
 
 // Object
 function createObj(index) {
-  let aut = `img/avatars/user${index.toString().padStart(2, '0')}.png`;
-  let loc = createLocation();
-  let off = createOffer();
+  const aut = `img/avatars/user${index.toString().padStart(2, '0')}.png`;
+  const loc = createLocation();
+  const off = createOffer();
   off.address.push(loc);
 
   return {
@@ -177,5 +159,4 @@ function createObj(index) {
   };
 }
 
-let a = Array.from({length: 10}, (_element, index) => createObj(index + 1));
-console.log(a);
+let arrayWithObjects = Array.from({length: 10}, (_element, index) => createObj(index + 1));
