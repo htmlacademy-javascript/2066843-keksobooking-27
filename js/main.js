@@ -159,4 +159,4 @@ function createObj(index) {
   };
 }
 
-let arrayWithObjects = Array.from({length: 10}, (_element, index) => createObj(index + 1));
+Array.from({length: 10}, (_element, index) => createObj(index + 1));
