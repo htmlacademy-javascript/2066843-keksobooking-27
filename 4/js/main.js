@@ -19,7 +19,6 @@ function getRandomPositiveInteger (a, b) {
   return Math.floor(result);
 }
 
-
 function getRandomPositiveFloat (a, b, digits) {
   if (a < 0 || b < 0 || digits < 0) {
     return NaN;
@@ -60,32 +59,6 @@ const getRandomShuffledArray = function(array) {
   return shuffled;
 };
 
-//  location
-// const lat = getRandomPositiveFloat(35.65, 35.7, 5);
-// const lng = getRandomPositiveFloat(139.7, 139.8, 5);
-
-// const createLocation = () => {
-// return lat + ", " + lng;
-// };
-
-function getRandomPositiveIntegerWithZero (a, b) {
-  if (a < 0 || b < 0) {
-    return NaN;
-  }
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-  const result = Math.floor(Math.random() * (upper - lower + 1) + lower);
-  if (result < 10) {
-    return `0${result}`;
-  }
-  return result;
-}
-
-// Author
-function createAuthor() {
-  return `img/avatars/user${getRandomPositiveIntegerWithZero(1,10)}.png`;
-}
-
 // Offer
 const TITLE = [
   'Executive apartment & free parking',
@@ -100,8 +73,6 @@ const TITLE = [
   'Hidden Gem with history',
 ];
 
-// const ADDRESS = Array.from({length: 10}, createLocation);
-// const PRICE = Array.from({length: 10}, getRandomPositiveNumber)
 const TYPE = [
   'palace',
   'flat',
@@ -144,11 +115,7 @@ const DESCRIPTION = [
   'This modern, sun-drenched apartment offers a tranquil residential vibe alongside quick, easy access to the downtown areas. Admire the crisp, contemporary decor of the open-plan living space and take in the peaceful surroundings from the cute terrace',
   'A lovely space to unwind and relax after a busy day whether it is work or play. Awake refreshed and ready for a day exploring the city via this clean, sunny apartment with impressive views. Head out and wander through the nearby farmers’ market and pick up local ingredients to later craft a meal in the fully stocked kitchen.',
 ];
-// const PHOTOS  = [
-//  new URL('https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg'),
-//  new URL('https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg'),
-//  new URL('https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg')
-// ]
+
 const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
@@ -158,7 +125,7 @@ const PHOTOS = [
 function createOffer() {
   return {
     title: getRamdomArrayElement(TITLE),
-    address: `${getRandomPositiveFloat(35.65, 35.7, 5)} , ${getRandomPositiveFloat(139.7, 139.8, 5)}`,
+    address : [],
     price: getRandomPositiveNumber(),
     type: getRamdomArrayElement(TYPE),
     rooms: getRandomPositiveInteger(1, 10),
@@ -171,14 +138,25 @@ function createOffer() {
   };
 }
 
+//Location
+function createLocation() {
+  const lat = getRandomPositiveFloat(35.65, 35.7, 5);
+  const lng = getRandomPositiveFloat(139.7, 139.8, 5);
+  return [lat, lng];
+}
+
 // Object
-function createObj() {
+function createObj(index) {
+  const aut = `img/avatars/user${index.toString().padStart(2, '0')}.png`;
+  const loc = createLocation();
+  const off = createOffer();
+  off.address.push(loc);
+
   return {
-    author: createAuthor(),
-    offer: createOffer(),
-    location: `lat: ${getRandomPositiveFloat(35.65, 35.7, 5)} , lng:${getRandomPositiveFloat(139.7, 139.8, 5)}`
+    author: aut,
+    offer: off,
+    location: loc
   };
 }
 
-createObj();
-// const obj = Array.from({length: 10}, createObj);
+Array.from({length: 10}, (_element, index) => createObj(index + 1));
