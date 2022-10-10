@@ -165,7 +165,7 @@ function createLocation() {
 
 // Object
 function createObj(index) {
-  let aut = `img/avatars/user${index}.png`;
+  let aut = `img/avatars/user${index.toString().padStart(2, '0')}.png`;
   let loc = createLocation();
   let off = createOffer();
   off.address.push(loc);
@@ -178,3 +178,4 @@ function createObj(index) {
 }
 
 let a = Array.from({length: 10}, (_element, index) => createObj(index + 1));
+console.log(a);
