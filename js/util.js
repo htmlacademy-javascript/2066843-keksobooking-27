@@ -53,12 +53,19 @@ function shuffle(array) {
 }
 
 const getRandomShuffledArray = function(array) {
-  const index = getRandomPositiveInteger(0, array.length - 1);
+  const index = getRandomPositiveInteger(0, array.length);
   array = shuffle(array);
   const shuffled = array.slice(0, index);
   return shuffled;
 };
 
+const hideElement = function(array, elelement) {
+  if(array.length === 0){
+    elelement.classList.add('hidden');
+  }
+};
+
+export {hideElement};
 export {getRamdomArrayElement};
 export {getRandomPositiveFloat};
 export {getRandomPositiveInteger};

@@ -5,7 +5,7 @@ import {getRandomPositiveNumber} from './util.js';
 import {getRandomShuffledArray} from './util.js';
 
 // Offer
-const TITLE = [
+const TITLES = [
   'Executive apartment & free parking',
   'Cheap and bestview',
   'Self check-in and late checkout',
@@ -14,11 +14,11 @@ const TITLE = [
   '5 min walking from city center',
   'Pet friendly',
   'With BBQ and pool',
-  'Family friendly with Garage PArking',
+  'Family friendly with Garage Parking',
   'Hidden Gem with history',
 ];
 
-const TYPE = [
+const TYPES = [
   'palace',
   'flat',
   'house',
@@ -26,13 +26,13 @@ const TYPE = [
   'hotel',
 ];
 
-const CHECKIN = [
+const CHECKINS = [
   '12:00',
   '13:00',
   '14:00'
 ];
 
-const CHECKOUT = [
+const CHECKOUTS = [
   '12:00',
   '13:00',
   '14:00'
@@ -47,7 +47,7 @@ const FEATURES = [
   'conditioner',
 ];
 
-const DESCRIPTION = [
+const DESCRIPTIONS = [
   'Take an early morning stroll and enjoy the Trevi Fountain without the tourists. Wander around the historic streets while the city sleeps, then head back for a morning coffee at this urban-chic studio with a suspended loft bedroom.',
   'Retreat to the deck of this sustainable getaway and gaze at the twinkling constellations under a cosy tartan blanket. AirShip 2 is an iconic, insulated aluminium pod designed by Roderick James with views of the Sound of Mull from dragonfly windows. Airship002 is comfortable, quirky and cool. It does not pretend to be a five-star hotel. The reviews tell the story.',
   'Enjoy the elegance of a by-gone era while staying in this Art Deco home. Beautifully decorated and featuring a sweeping staircase, original stained-glass windows, period furniture, and a stunningly unique black-and-white tiled bathroom.',
@@ -69,16 +69,16 @@ const PHOTOS = [
 
 function createOffer() {
   return {
-    title: getRamdomArrayElement(TITLE),
-    address : [],
+    title: getRamdomArrayElement(TITLES),
+    address : '',
     price: getRandomPositiveNumber(),
-    type: getRamdomArrayElement(TYPE),
+    type: getRamdomArrayElement(TYPES),
     rooms: getRandomPositiveInteger(1, 10),
     guests: getRandomPositiveInteger(2, 16),
-    checkin: getRamdomArrayElement(CHECKIN),
-    checkout: getRamdomArrayElement(CHECKOUT),
+    checkin: getRamdomArrayElement(CHECKINS),
+    checkout: getRamdomArrayElement(CHECKOUTS),
     features: getRandomShuffledArray(FEATURES),
-    description: getRamdomArrayElement(DESCRIPTION),
+    description: getRamdomArrayElement(DESCRIPTIONS),
     photos: getRandomShuffledArray(PHOTOS)
   };
 }
@@ -87,7 +87,7 @@ function createOffer() {
 function createLocation() {
   const lat = getRandomPositiveFloat(35.65, 35.7, 5);
   const lng = getRandomPositiveFloat(139.7, 139.8, 5);
-  return [lat, lng];
+  return `lat:${lat}, lng:${lng}`;
 }
 
 // Object
@@ -95,7 +95,8 @@ function createObj(index) {
   const aut = `img/avatars/user${index.toString().padStart(2, '0')}.png`;
   const loc = createLocation();
   const off = createOffer();
-  off.address.push(loc);
+
+  off.address = `${loc}`;
 
   return {
     author: aut,
@@ -104,9 +105,8 @@ function createObj(index) {
   };
 }
 
-const OBJECT_COUNT = 10
+const OBJECT_COUNT = 10;
 
-const createObjects= () => Array.from({length: OBJECT_COUNT}, (_element, index) => createObj(index + 1));
-
+const createObjects = () => Array.from({length: OBJECT_COUNT}, (_element, index) => createObj(index + 1));
 
 export {createObjects};

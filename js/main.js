@@ -1,3 +1,1 @@
-import {createObjects} from './data.js';
-
-console.log(createObjects());
+import './element.js';
