@@ -2,8 +2,8 @@ const form = document.querySelector('.ad-form');
 // const mapFilters = document.querySelector('.map__filters');
 const type = document.querySelector('#type');
 const price = document.querySelector('#price');
-// const timeIn = document.querySelector('#timein');
-// const timeOut = document.querySelector('#timeout');
+const timeIn = document.querySelector('#timein');
+const timeOut = document.querySelector('#timeout');
 const roomNumber = form.querySelector('#room_number');
 const capacity = form.querySelector('#capacity');
 
@@ -24,13 +24,14 @@ const turnOffOn = function() {
 
 export {turnOffOn};
 
-//Validation
 
+//Validation
 const pristine = new Pristine(form, {
   classTo: 'ad-form__element',
   errorClass: 'ad-form__element--invalid',
   errorTextParent: 'ad-form__element'
 });
+
 
 //Validate guests
 const roomsGuests = {
@@ -55,6 +56,7 @@ const getGuestsErrorMessage = () => {
   }
 };
 
+
 //Validate price
 const priceByType = {
   'palace': 10000,
@@ -67,6 +69,19 @@ const priceByType = {
 const validatePrice = () => priceByType[type.value] <= price.value && price.value < 100000;
 
 const getPriceErrorMessage = () => `Minimal price for ${type.value} is ${priceByType[type.value]}`;
+
+// eslint-disable-next-line no-return-assign
+const changeMinPrice = () => price.placeholder = priceByType[type.value];
+type.addEventListener('change', changeMinPrice);
+
+
+//Validate checkIn checkOut
+timeIn.addEventListener('change', () => {
+  timeOut.value = timeIn.value;
+});
+timeOut.addEventListener('change', () => {
+  timeIn.value = timeOut.value;
+});
 
 pristine.addValidator(price, validatePrice, getPriceErrorMessage);
 pristine.addValidator(capacity, validateGuests, getGuestsErrorMessage);
