@@ -1,12 +1,7 @@
-import {createObjects} from './data.js';
 import { hideElement } from './util.js';
 
-const objects = createObjects(10);
-
-const mapBlock = document.querySelector('.map__canvas');
-const templateFragment = document.querySelector('#card').content.querySelector('.popup');
-
-objects.forEach((element) => {
+const getCard = (element) => {
+  const templateFragment = document.querySelector('#card').content.querySelector('.popup');
   const apartmentElement = templateFragment.cloneNode(true);
   apartmentElement.querySelector('.popup__title').textContent = element.offer.title;
   apartmentElement.querySelector('.popup__text--address').textContent = element.offer.address;
@@ -21,12 +16,16 @@ objects.forEach((element) => {
     const photoContainer = apartmentElement.querySelector('.popup__photos');
     const photoElement = apartmentElement.querySelector('.popup__photo').cloneNode(true);
     photoElement.src = photo;
+    photoElement.alt = 'Фотография жилья';
+    photoElement.setAttribute('width', '45');
+    photoElement.setAttribute('height', '40');
     photoContainer.appendChild(photoElement);
   }
   );
   oldPhoto.remove();
   hideElement(element.offer.photos, apartmentElement.querySelector('.popup__photos'));
   hideElement(element.offer.features, apartmentElement.querySelector('.popup__features'));
-  mapBlock.appendChild(apartmentElement);
-});
+  return apartmentElement;
+};
 
+export{getCard};

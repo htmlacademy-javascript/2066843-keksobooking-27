@@ -1,5 +1,7 @@
 import './element.js';
-import { turnOffOn } from './form.js';
+import {pageDisabled} from './form.js';
+import './map.js';
+import { loadMap } from './map.js';
 
-turnOffOn();
-turnOffOn();
+pageDisabled();
+loadMap();

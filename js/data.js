@@ -83,30 +83,32 @@ function createOffer() {
   };
 }
 
-//Location
-function createLocation() {
-  const lat = getRandomPositiveFloat(35.65, 35.7, 5);
-  const lng = getRandomPositiveFloat(139.7, 139.8, 5);
-  return `lat:${lat}, lng:${lng}`;
-}
+// //Location
+// function createLocation() {
+//   const lat = getRandomPositiveFloat(35.65, 35.7, 5);
+//   const lng = getRandomPositiveFloat(139.7, 139.8, 5);
+//   return `lat:${lat}, lng:${lng}`;
+// }
 
 // Object
 function createObj(index) {
   const aut = `img/avatars/user${index.toString().padStart(2, '0')}.png`;
-  const loc = createLocation();
+  const locLat = getRandomPositiveFloat(35.65, 35.7, 5);
+  const locLng = getRandomPositiveFloat(139.7, 139.8, 5);
   const off = createOffer();
 
-  off.address = `${loc}`;
+  off.address = `${locLat}, ${locLng}`;
 
   return {
     author: aut,
     offer: off,
-    location: loc
+    location: {
+      lat: locLat,
+      lng: locLng
+    },
   };
 }
 
-const OBJECT_COUNT = 10;
-
-const createObjects = () => Array.from({length: OBJECT_COUNT}, (_element, index) => createObj(index + 1));
+const createObjects = (count) => Array.from({length: count}, (_element, index) => createObj(index + 1));
 
 export {createObjects};

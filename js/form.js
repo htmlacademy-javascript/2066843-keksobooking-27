@@ -1,29 +1,42 @@
 const form = document.querySelector('.ad-form');
-// const mapFilters = document.querySelector('.map__filters');
+const mapFilters = document.querySelector('.map__filters');
 const type = document.querySelector('#type');
 const price = document.querySelector('#price');
 const timeIn = document.querySelector('#timein');
 const timeOut = document.querySelector('#timeout');
 const roomNumber = form.querySelector('#room_number');
 const capacity = form.querySelector('#capacity');
+const address = form.querySelector('#address');
+const formChildren = form.children;
+const mapFiltersChildren = mapFilters.children;
 
+const slider = form.querySelector('.ad-form__slider');
 
-const turnOffOn = function() {
-  const notice = document.querySelector('.notice');
-  form.classList.toggle('.ad-form--disabled');
-  const elements = notice.querySelectorAll('.ad-form__element');
-  elements.forEach((element) => {
-    element.classList.toggle('ad-form--disabled');
-  });
-  const filterContainer = document.querySelector('.map__filters-container');
-  const filterItems = filterContainer.querySelectorAll('.map__filter');
-  filterItems.forEach((element) => {
-    element.classList.toggle('map__filters--disabled');
-  });
+//disable form
+const pageDisabled = () => {
+  form.classList.add('ad-form--disabled');
+  for (const child of formChildren) {
+    child.setAttribute('disabled', 'disabled');
+  }
+
+  mapFilters.classList.add('.map__filters--disabled');
+  for (const child of mapFiltersChildren) {
+    child.setAttribute('disabled', 'disabled');
+  }
 };
 
-export {turnOffOn};
+//activate form
+const pageActive = () => {
+  form.classList.remove('ad-form--disabled');
+  for (const child of formChildren) {
+    child.removeAttribute('disabled', 'disabled');
+  }
 
+  mapFilters.classList.remove('.map__filters--disabled');
+  for (const child of mapFiltersChildren) {
+    child.removeAttribute('disabled', 'disabled');
+  }
+};
 
 //Validation
 const pristine = new Pristine(form, {
@@ -57,7 +70,7 @@ const getGuestsErrorMessage = () => {
 };
 
 
-//Validate price
+//Validate price and slider
 const priceByType = {
   'palace': 10000,
   'flat': 1000,
@@ -70,9 +83,43 @@ const validatePrice = () => priceByType[type.value] <= price.value && price.valu
 
 const getPriceErrorMessage = () => `Minimal price for ${type.value} is ${priceByType[type.value]}`;
 
-// eslint-disable-next-line no-return-assign
-const changeMinPrice = () => price.placeholder = priceByType[type.value];
+//slider
+noUiSlider.create(slider, {
+  range: {
+    min: 0,
+    max: 100000,
+  },
+  start: 0,
+  step: 1,
+  connect: 'lower',
+  format: {
+    to: function (value) {
+      return value.toFixed(0);
+    },
+    from: function (value) {
+      return parseFloat(value);
+    },
+  },
+});
+
+slider.noUiSlider.on('update', () => {
+  price.value = slider.noUiSlider.get();
+});
+
+const changeMinPrice = () => {
+  price.min = priceByType[type.value];
+  price.placeholder = priceByType[type.value];
+  slider.noUiSlider.updateOptions({
+    range: {
+      min: priceByType[type.value],
+      max: 100000
+    },
+  });
+};
 type.addEventListener('change', changeMinPrice);
+price.addEventListener('change', () => {
+  slider.noUiSlider.set(price.value);
+});
 
 
 //Validate checkIn checkOut
@@ -91,3 +138,12 @@ form.addEventListener('submit', (evt) => {
     evt.preventDefault();
   }
 });
+
+//Address string readonly
+//does not work
+address.setAttribute('readonly', 'readonly');
+
+export {
+  pageDisabled,
+  pageActive,
+};
