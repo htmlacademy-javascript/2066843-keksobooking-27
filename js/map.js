@@ -1,8 +1,8 @@
-import {createObjects} from './data.js';
+// import {createObjects} from './data.js';
 import { getCard } from './element.js';
 import { pageActive } from './form.js';
 
-const randomObjects = createObjects(10);
+// const randomObjects = createObjects(10);
 const address = document.querySelector('#address');
 const TOKYO_COORDINATES = {
   lat: 35.672855,
@@ -50,20 +50,22 @@ const similarPinIcon = L.icon({
 });
 
 
-randomObjects.forEach((element) =>{
-  const lat = element.location.lat;
-  const lng = element.location.lng;
-  const marker = L.marker({
-    lat,
-    lng,
-  },{
-    icon: similarPinIcon,
-  });
+const putOnMap = function(objects) {
+  objects.forEach((element) =>{
+    const lat = element.location.lat;
+    const lng = element.location.lng;
+    const marker = L.marker({
+      lat,
+      lng,
+    },{
+      icon: similarPinIcon,
+    });
 
-  marker
-    .addTo(map)
-    .bindPopup(getCard(element));
-});
+    marker
+      .addTo(map)
+      .bindPopup(getCard(element));
+  });
+};
 
 const getCoordinates = function(element) {
   address.value = `${element.lat}, ${element.lng}`;
@@ -80,3 +82,4 @@ const loadMap = () => {
 };
 
 export {loadMap};
+export {putOnMap};

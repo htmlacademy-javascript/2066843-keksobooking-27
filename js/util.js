@@ -59,16 +59,35 @@ const getRandomShuffledArray = function(array) {
   return shuffled;
 };
 
-const hideElement = function(array, elelement) {
-  if(array.length === 0){
+const hideElement = function(key, object, elelement) {
+  const result = key in object;
+  if(result){
     elelement.classList.add('hidden');
   }
 };
 
+const resetForm = function(form) {
+  form.reset();
+};
 
-export {hideElement};
-export {getRamdomArrayElement};
-export {getRandomPositiveFloat};
-export {getRandomPositiveInteger};
-export {getRandomPositiveNumber};
-export {getRandomShuffledArray};
+const blockSubmitButton = () => {
+  const submitButton = document.querySelector('.ad-form__submit');
+  submitButton.disabled = true;
+};
+
+const unblockSubmitButton = () => {
+  const submitButton = document.querySelector('.ad-form__submit');
+  submitButton.disabled = false;
+};
+
+
+export {hideElement,
+  getRamdomArrayElement,
+  getRandomPositiveFloat,
+  getRandomPositiveInteger,
+  getRandomPositiveNumber,
+  getRandomShuffledArray,
+  resetForm,
+  unblockSubmitButton,
+  blockSubmitButton,
+};

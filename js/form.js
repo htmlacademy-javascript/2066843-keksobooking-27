@@ -1,3 +1,7 @@
+import { sendData } from './api.js';
+import { unblockSubmitButton } from './util.js';
+import { blockSubmitButton } from './util.js';
+
 const form = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
 const type = document.querySelector('#type');
@@ -133,11 +137,26 @@ timeOut.addEventListener('change', () => {
 pristine.addValidator(price, validatePrice, getPriceErrorMessage);
 pristine.addValidator(capacity, validateGuests, getGuestsErrorMessage);
 
-form.addEventListener('submit', (evt) => {
-  if(!pristine.validate()){
+const setUserFormSubmit = (onSuccess) => {
+  form.addEventListener('submit', (evt) => {
     evt.preventDefault();
-  }
-});
+
+    const isValid = pristine.validate();
+    if(isValid){
+      blockSubmitButton();
+      sendData(
+        () => {
+          onSuccess();
+          unblockSubmitButton();
+        },
+        () => {
+          unblockSubmitButton();
+        },
+        new FormData(evt.target),
+      );
+    }
+  });
+};
 
 //Address string readonly
 //does not work
@@ -146,4 +165,5 @@ address.setAttribute('readonly', 'readonly');
 export {
   pageDisabled,
   pageActive,
+  setUserFormSubmit,
 };
