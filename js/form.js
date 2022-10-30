@@ -2,6 +2,7 @@
 // import { unblockSubmitButton } from './util.js';
 // import { blockSubmitButton } from './util.js';
 
+
 const form = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
 const type = document.querySelector('#type');
@@ -155,8 +156,14 @@ const setUserFormSubmit = (reset, succesMessage, errorMessage) => {
           body: formData,
         },
       )
-        .then(() => reset())
-        .then(() => succesMessage())
+        .then(() => {
+          if(Response.ok){
+            succesMessage();
+            reset();
+          } else {
+            errorMessage();
+          }
+        })
         .catch(() => {
           errorMessage();
         });

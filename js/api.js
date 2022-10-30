@@ -8,22 +8,8 @@ const getData = (onSuccess) => {
     });
 };
 
-// const sendData = (onSuccess, body) => {
-//   fetch(
-//     ' https://27.javascript.pages.academy/keksobooking ',
-//     {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'multipart/form-data'
-//       },
-//       body,
-//     },
-//   )
-//     .then((respone) => {
-//       if(respone.ok) {
-//         onSuccess();
-//       }
-//     });
-// };
+const sendData = (onSuccess, onFail, body) => {
 
-export {getData};
+};
+
+export {getData, sendData};
