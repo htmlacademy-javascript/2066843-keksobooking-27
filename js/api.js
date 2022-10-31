@@ -2,9 +2,11 @@ import { showError, showSuccess } from './err.js';
 import { resetForm } from './util.js';
 
 const SIMILAR_OBJECTS_COUNT = 15;
+const GET_DATA_ADDRESS = 'https://27.javascript.pages.academy/keksobooking/data';
+const SEND_DATA_ADDRESS = 'https://27.javascript.pages.academy/keksobooking';
 
 const getData = (onSuccess) => {
-  fetch('https://27.javascript.pages.academy/keksobooking/data')
+  fetch(GET_DATA_ADDRESS)
     .then((response) => response.json())
     .then((objects) => {
       onSuccess(objects.slice(0, SIMILAR_OBJECTS_COUNT));
@@ -12,10 +14,8 @@ const getData = (onSuccess) => {
 };
 
 const sendData = (body) => {
-  // eslint-disable-next-line no-console
-  console.log('form is sent');
   fetch(
-    'https://27.javascript.pages.academy/keksobooking',
+    SEND_DATA_ADDRESS,
     {
       method: 'POST',
       body,
