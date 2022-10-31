@@ -66,7 +66,8 @@ const hideElement = function(key, object, elelement) {
   }
 };
 
-const resetForm = function(form) {
+const resetForm = function() {
+  const form = document.querySelector('.ad-form');
   form.reset();
 };
 

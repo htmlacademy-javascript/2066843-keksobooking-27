@@ -1,6 +1,7 @@
-import { sendData } from './api.js';
-import { unblockSubmitButton } from './util.js';
-import { blockSubmitButton } from './util.js';
+// import { sendData } from './api.js';
+// import { unblockSubmitButton } from './util.js';
+// import { blockSubmitButton } from './util.js';
+
 
 const form = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
@@ -137,26 +138,52 @@ timeOut.addEventListener('change', () => {
 pristine.addValidator(price, validatePrice, getPriceErrorMessage);
 pristine.addValidator(capacity, validateGuests, getGuestsErrorMessage);
 
-const setUserFormSubmit = (onSuccess) => {
+
+//send form
+const setUserFormSubmit = (reset, succesMessage, errorMessage) => {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     const isValid = pristine.validate();
     if(isValid){
-      blockSubmitButton();
-      sendData(
-        () => {
-          onSuccess();
-          unblockSubmitButton();
+      const formData = new FormData (evt.target);
+      // eslint-disable-next-line no-console
+      console.log('form is sent');
+      fetch(
+        'https://27.javascript.pages.academy/keksobooking',
+        {
+          method: 'POST',
+          body: formData,
         },
-        () => {
-          unblockSubmitButton();
-        },
-        new FormData(evt.target),
-      );
+      )
+        .then(() => {
+          if(Response.ok){
+            succesMessage();
+            reset();
+          } else {
+            errorMessage();
+          }
+        })
+        .catch(() => {
+          errorMessage();
+        });
     }
   });
 };
+// blockSubmitButton();
+//     sendData(
+//       () => {
+//         onSuccess();
+//         unblockSubmitButton();
+//       },
+//       () => {
+//         unblockSubmitButton();
+//       },
+//       new FormData(evt.target),
+//     );
+//   }
+// });
+// };
 
 //Address string readonly
 //does not work
