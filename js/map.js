@@ -1,8 +1,7 @@
-// import {createObjects} from './data.js';
 import { getCard } from './element.js';
 import { pageActive } from './form.js';
 
-// const randomObjects = createObjects(10);
+
 const address = document.querySelector('#address');
 const TOKYO_COORDINATES = {
   lat: 35.672855,
