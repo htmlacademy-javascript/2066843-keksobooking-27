@@ -1,7 +1,7 @@
 import { showError, showSuccess } from './err.js';
 import { resetForm } from './util.js';
 
-const SIMILAR_OBJECTS_COUNT = 15;
+const SIMILAR_OBJECTS_COUNT = 12;
 const GET_DATA_ADDRESS = 'https://27.javascript.pages.academy/keksobooking/data';
 const SEND_DATA_ADDRESS = 'https://27.javascript.pages.academy/keksobooking';
 
