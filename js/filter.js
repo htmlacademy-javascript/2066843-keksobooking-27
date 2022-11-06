@@ -25,10 +25,7 @@ const validateCheck = (element) => {
 
 function checkFeature (array, item) {
   if(validateCheck(item)){
-    // eslint-disable-next-line no-console
-    // console.log(item);
-    // // eslint-disable-next-line no-console
-    // console.log(array.some(item));
+    // return array.some((element) => element === item);
     return array.some((element) => element === item);
   }
 }
@@ -64,6 +61,7 @@ function getObjectRank(object) {
   }
 
   //checkbox filter
+  //не смог придумать как можно сделать фильтр с чебоксами, если можно получить совет или направление мыслей куда двигаться дальше =))
   const checkBoxes = document.querySelectorAll('.map__checkbox');
   checkBoxes.forEach((element) => {
     if(checkFeature(object.offer.features, element.value)){
