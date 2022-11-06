@@ -7,6 +7,7 @@ const getCard = (element) => {
   apartmentElement.querySelector('.popup__avatar').src = element.author.avatar;
   apartmentElement.querySelector('.popup__text--address').textContent = element.offer.address;
   apartmentElement.querySelector('.popup__text--price').textContent = `${element.offer.price} ₽/ночь`;
+  apartmentElement.querySelector('.popup__type').textContent = element.offer.type;
   apartmentElement.querySelector('.popup__text--capacity').textContent = `${element.offer.rooms} комнаты для ${element.offer.guests} гостей`;
   apartmentElement.querySelector('.popup__text--time').textContent = `Заезд после ${element.offer.checkin}, выезд до ${element.offer.checkout}`;
   apartmentElement.querySelector('.popup__features').textContent = element.offer.features;
