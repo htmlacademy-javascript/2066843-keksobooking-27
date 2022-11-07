@@ -1,8 +1,8 @@
-// import {createObjects} from './data.js';
 import { getCard } from './element.js';
+import { compareObjects } from './filter.js';
 import { pageActive } from './form.js';
 
-// const randomObjects = createObjects(10);
+
 const address = document.querySelector('#address');
 const TOKYO_COORDINATES = {
   lat: 35.672855,
@@ -22,6 +22,9 @@ L.tileLayer(
   },
 ).addTo(map);
 
+//layer for markers
+const markerGroup = L.layerGroup().addTo(map);
+
 //main marker
 const mainPinIcon = L.icon({
   iconUrl: '../img/main-pin.svg',
@@ -40,7 +43,7 @@ const mainMarker = L.marker(
   },
 );
 
-mainMarker.addTo(map);
+mainMarker.addTo(markerGroup);
 
 //similar other markers
 const similarPinIcon = L.icon({
@@ -50,21 +53,32 @@ const similarPinIcon = L.icon({
 });
 
 
-const putOnMap = function(objects) {
-  objects.forEach((element) =>{
-    const lat = element.location.lat;
-    const lng = element.location.lng;
-    const marker = L.marker({
-      lat,
-      lng,
-    },{
-      icon: similarPinIcon,
-    });
+//remove markers from the map
+const removeMarkers = () => {
+  markerGroup.clearLayers();
+};
 
-    marker
-      .addTo(map)
-      .bindPopup(getCard(element));
-  });
+const SIMILAR_OBJECTS_COUNT = 10;
+
+const putOnMap = function(objects) {
+  objects
+    .slice()
+    .sort(compareObjects)
+    .slice(0, SIMILAR_OBJECTS_COUNT)
+    .forEach((element) =>{
+      const lat = element.location.lat;
+      const lng = element.location.lng;
+      const marker = L.marker({
+        lat,
+        lng,
+      },{
+        icon: similarPinIcon,
+      });
+
+      marker
+        .addTo(markerGroup)
+        .bindPopup(getCard(element));
+    });
 };
 
 const getCoordinates = function(element) {
@@ -81,5 +95,6 @@ const loadMap = () => {
   getCoordinates(TOKYO_COORDINATES);
 };
 
+
 export {loadMap};
-export {putOnMap};
+export {putOnMap, removeMarkers};

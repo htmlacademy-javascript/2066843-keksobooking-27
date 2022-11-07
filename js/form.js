@@ -1,7 +1,4 @@
-// import { sendData } from './api.js';
-// import { unblockSubmitButton } from './util.js';
-// import { blockSubmitButton } from './util.js';
-
+import { sendData } from './api.js';
 
 const form = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
@@ -140,53 +137,20 @@ pristine.addValidator(capacity, validateGuests, getGuestsErrorMessage);
 
 
 //send form
-const setUserFormSubmit = (reset, succesMessage, errorMessage) => {
+const setUserFormSubmit = () => {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     const isValid = pristine.validate();
     if(isValid){
-      const formData = new FormData (evt.target);
-      // eslint-disable-next-line no-console
-      console.log('form is sent');
-      fetch(
-        'https://27.javascript.pages.academy/keksobooking',
-        {
-          method: 'POST',
-          body: formData,
-        },
-      )
-        .then(() => {
-          if(Response.ok){
-            succesMessage();
-            reset();
-          } else {
-            errorMessage();
-          }
-        })
-        .catch(() => {
-          errorMessage();
-        });
+      sendData(
+        new FormData (evt.target),
+      );
     }
   });
 };
-// blockSubmitButton();
-//     sendData(
-//       () => {
-//         onSuccess();
-//         unblockSubmitButton();
-//       },
-//       () => {
-//         unblockSubmitButton();
-//       },
-//       new FormData(evt.target),
-//     );
-//   }
-// });
-// };
 
-//Address string readonly
-//does not work
+
 address.setAttribute('readonly', 'readonly');
 
 export {

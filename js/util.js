@@ -1,3 +1,5 @@
+import {hideError, hideSuccess} from './err.js';
+
 function getRandomPositiveNumber() {
   let number = Math.floor(Math.random() * 100);
   while (number < 0){
@@ -60,8 +62,7 @@ const getRandomShuffledArray = function(array) {
 };
 
 const hideElement = function(key, object, elelement) {
-  const result = key in object;
-  if(result){
+  if(key in object){
     elelement.classList.add('hidden');
   }
 };
@@ -71,16 +72,32 @@ const resetForm = function() {
   form.reset();
 };
 
+//block and unblock button
+const submitButton = document.querySelector('.ad-form__submit');
+
 const blockSubmitButton = () => {
-  const submitButton = document.querySelector('.ad-form__submit');
   submitButton.disabled = true;
 };
 
 const unblockSubmitButton = () => {
-  const submitButton = document.querySelector('.ad-form__submit');
   submitButton.disabled = false;
 };
 
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+const onErrorMessageEscKeydown = (evt) => {
+  if(isEscapeKey(evt)) {
+    evt.preventDefault();
+    hideError();
+  }
+};
+
+const onSuccessMessageEscKeydown = (evt) => {
+  if(isEscapeKey(evt)){
+    evt.preventDefault();
+    hideSuccess();
+  }
+};
 
 export {hideElement,
   getRamdomArrayElement,
@@ -91,4 +108,7 @@ export {hideElement,
   resetForm,
   unblockSubmitButton,
   blockSubmitButton,
+  isEscapeKey,
+  onErrorMessageEscKeydown,
+  onSuccessMessageEscKeydown,
 };
