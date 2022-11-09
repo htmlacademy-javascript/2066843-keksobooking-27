@@ -1,5 +1,6 @@
 import {hideError, hideSuccess} from './err.js';
 
+
 function getRandomPositiveNumber() {
   let number = Math.floor(Math.random() * 100);
   while (number < 0){
@@ -99,6 +100,15 @@ const onSuccessMessageEscKeydown = (evt) => {
   }
 };
 
+const debounce = (cb, timeoutDelay = 500) => {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => cb.apply(this, rest), timeoutDelay);
+  };
+};
+
+
 export {hideElement,
   getRamdomArrayElement,
   getRandomPositiveFloat,
@@ -111,4 +121,5 @@ export {hideElement,
   isEscapeKey,
   onErrorMessageEscKeydown,
   onSuccessMessageEscKeydown,
+  debounce,
 };

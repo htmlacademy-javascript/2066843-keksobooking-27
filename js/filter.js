@@ -1,78 +1,10 @@
 
 
 const housingType = document.querySelector('#housing-type');
-// const housingPrice = document.querySelector('#housing-price');
-// const housingRooms = document.querySelector('#housing-rooms');
-// const housingGuests = document.querySelector('#housing-guests');
-// const housingFeatures = document.querySelectorAll('.map__checkbox');
-
-// const getPrice = (element) => {
-//   const price = element.offer.price;
-//   if(price < 10000){
-//     return 'low';
-//   }else if(price >= 10000 && price < 50000){
-//     return 'middle';
-//   }else if(price >= 50000) {
-//     return 'high';
-//   }
-// };
-
-// // const validateCheck = (element) => {
-// //   if(element.checked){
-// //     return true;
-// //   }else {
-// //     return false;
-// //   }
-// // };
-
-// // function checkFeature (array, item) {
-// //   if(validateCheck(item)){
-// //     // return array.some((element) => element === item);
-// //     return array.some((element) => element === item);
-// //   }
-// // }
-
-// function getObjectRank(object) {
-//   let rank = 0;
-
-//   //Type filter
-//   if (object.offer.type === housingType.value) {
-//     rank++;
-//   }
-
-//   //Price filter
-//   const price = getPrice(object);
-//   if(price === housingPrice.value){
-//     rank++;
-//   }
-
-//   //Rooms filter
-
-//   //не понимаю почему при === не работает фильтр , а с == работает
-//   // eslint-disable-next-line eqeqeq
-//   if(object.offer.rooms == housingRooms.value){
-//     rank++;
-//   }
-
-//   //Guest filter
-
-//   //не понимаю почему при === не работает фильтр , а с == работает
-//   // eslint-disable-next-line eqeqeq
-//   if(object.offer.guests == housingGuests.value){
-//     rank++;
-//   }
-
-//   return rank;
-// }
-
-// const compareObjects = (objA, objB) => {
-//   const rankA = getObjectRank(objA);
-//   const rankB = getObjectRank(objB);
-
-//   return rankB - rankA;
-// };
-
-// export {compareObjects};
+const housingPrice = document.querySelector('#housing-price');
+const housingRooms = document.querySelector('#housing-rooms');
+const housingGuests = document.querySelector('#housing-guests');
+const housingFeatures = document.querySelectorAll('.map__checkbox');
 
 
 const setAnyValue = (id) => {
@@ -91,6 +23,7 @@ const resetFilters = () => {
   });
 };
 
+// type filter
 const filterType = (ad) => {
   if(housingType.value === 'any'){
     return true;
@@ -99,13 +32,77 @@ const filterType = (ad) => {
   }
 };
 
-const filterOffers = (ad) => filterType(ad);
+// price filter
+const getPrice = (element) => {
+  const price = element.offer.price;
+  if(price < 10000){
+    return 'low';
+  }else if(price >= 10000 && price < 50000){
+    return 'middle';
+  }else if(price >= 50000) {
+    return 'high';
+  }
+};
+const filterPrice = (ad) => {
+  if(housingPrice.value === 'any') {
+    return true;
+  }
+  return getPrice(ad) === housingPrice.value;};
+
+//rooms filter
+const filterRooms = (ad) => {
+  if(housingRooms.value === 'any') {
+    return true;
+  }
+  // eslint-disable-next-line eqeqeq
+  return ad.offer.rooms == housingRooms.value;
+};
+
+// guests filter
+const filterGuests = (ad) => {
+  if(housingGuests.value === 'any') {
+    return true;
+  }
+  // eslint-disable-next-line eqeqeq
+  return ad.offer.guests == housingGuests.value;
+};
+
+//features filter
+const filterFeatures = (ad) => {
+  const checkedFeatures = [];
+  housingFeatures.forEach((element) => {
+    if(element.checked){
+      checkedFeatures.push(element.value);
+    }
+  });
+  if(checkedFeatures.length > 0 && ad.offer.features === undefined){
+    return false;
+  }
+
+  return (checkedFeatures.every((element) => ad.offer.features.includes(element)));
+};
+
+// combine all filters
+const filterOffers = (ad) =>
+  filterType(ad) && filterPrice(ad) && filterRooms(ad) && filterGuests(ad) && filterFeatures(ad);
 
 // eslint-disable-next-line no-shadow
 const setChangeEventOnFilter = (putOnMap) => {
   housingType.addEventListener('change', () => {
     putOnMap();
   });
+  housingPrice.addEventListener('change', () => {
+    putOnMap();
+  });
+  housingRooms.addEventListener('change', () => {
+    putOnMap();
+  });
+  housingGuests.addEventListener('change', () => {
+    putOnMap();
+  });
+  housingFeatures.forEach((element) => element.addEventListener('click', () => {
+    putOnMap();
+  }));
 };
 
 export {resetFilters, filterOffers, setChangeEventOnFilter};
