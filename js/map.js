@@ -1,5 +1,4 @@
 import { getCard } from './element.js';
-import { compareObjects } from './filter.js';
 import { pageActive } from './form.js';
 
 
@@ -43,7 +42,7 @@ const mainMarker = L.marker(
   },
 );
 
-mainMarker.addTo(markerGroup);
+mainMarker.addTo(map);
 
 //similar other markers
 const similarPinIcon = L.icon({
@@ -60,10 +59,10 @@ const removeMarkers = () => {
 
 const SIMILAR_OBJECTS_COUNT = 10;
 
-const putOnMap = function(objects) {
+const putOnMap = (objects) => {
+  markerGroup.clearLayers();
   objects
     .slice()
-    .sort(compareObjects)
     .slice(0, SIMILAR_OBJECTS_COUNT)
     .forEach((element) =>{
       const lat = element.location.lat;

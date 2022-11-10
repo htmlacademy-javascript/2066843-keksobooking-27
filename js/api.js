@@ -1,5 +1,5 @@
 import { showError, showSuccess } from './err.js';
-import { resetForm } from './util.js';
+import { resetForm } from './reset.js';
 
 const GET_DATA_ADDRESS = 'https://27.javascript.pages.academy/keksobooking/data';
 const SEND_DATA_ADDRESS = 'https://27.javascript.pages.academy/keksobooking';

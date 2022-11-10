@@ -1,5 +1,6 @@
 import {hideError, hideSuccess} from './err.js';
 
+
 function getRandomPositiveNumber() {
   let number = Math.floor(Math.random() * 100);
   while (number < 0){
@@ -67,10 +68,6 @@ const hideElement = function(key, object, elelement) {
   }
 };
 
-const resetForm = function() {
-  const form = document.querySelector('.ad-form');
-  form.reset();
-};
 
 //block and unblock button
 const submitButton = document.querySelector('.ad-form__submit');
@@ -99,16 +96,25 @@ const onSuccessMessageEscKeydown = (evt) => {
   }
 };
 
+const debounce = (cb, timeoutDelay = 500) => {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => cb.apply(this, rest), timeoutDelay);
+  };
+};
+
+
 export {hideElement,
   getRamdomArrayElement,
   getRandomPositiveFloat,
   getRandomPositiveInteger,
   getRandomPositiveNumber,
   getRandomShuffledArray,
-  resetForm,
   unblockSubmitButton,
   blockSubmitButton,
   isEscapeKey,
   onErrorMessageEscKeydown,
   onSuccessMessageEscKeydown,
+  debounce,
 };

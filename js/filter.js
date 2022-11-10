@@ -1,9 +1,28 @@
+
+
 const housingType = document.querySelector('#housing-type');
 const housingPrice = document.querySelector('#housing-price');
 const housingRooms = document.querySelector('#housing-rooms');
 const housingGuests = document.querySelector('#housing-guests');
-// const housingFeatures = document.querySelector('#housing-features');
+const housingFeatures = document.querySelectorAll('.map__checkbox');
 
+
+const setAnyValue = (id) => {
+  const field = document.querySelector(`#${id}`);
+  field.value = 'any';
+};
+
+
+// type filter
+const filterType = (ad) => {
+  if(housingType.value === 'any'){
+    return true;
+  } else {
+    return ad.offer.type === housingType.value;
+  }
+};
+
+// price filter
 const getPrice = (element) => {
   const price = element.offer.price;
   if(price < 10000){
@@ -14,69 +33,66 @@ const getPrice = (element) => {
     return 'high';
   }
 };
-
-const validateCheck = (element) => {
-  if(element.checked){
+const filterPrice = (ad) => {
+  if(housingPrice.value === 'any') {
     return true;
-  }else {
-    return false;
   }
+  return getPrice(ad) === housingPrice.value;};
+
+//rooms filter
+const filterRooms = (ad) => {
+  if(housingRooms.value === 'any') {
+    return true;
+  }
+  // eslint-disable-next-line eqeqeq
+  return ad.offer.rooms == housingRooms.value;
 };
 
-function checkFeature (array, item) {
-  if(validateCheck(item)){
-    // return array.some((element) => element === item);
-    return array.some((element) => element === item);
+// guests filter
+const filterGuests = (ad) => {
+  if(housingGuests.value === 'any') {
+    return true;
   }
-}
-
-function getObjectRank(object) {
-  let rank = 0;
-
-  //Type filter
-  if (object.offer.type === housingType.value) {
-    rank++;
-  }
-
-  //Price filter
-  const price = getPrice(object);
-  if(price === housingPrice.value){
-    rank++;
-  }
-
-  //Rooms filter
-
-  //не понимаю почему при === не работает фильтр , а с == работает
   // eslint-disable-next-line eqeqeq
-  if(object.offer.rooms == housingRooms.value){
-    rank++;
-  }
+  return ad.offer.guests == housingGuests.value;
+};
 
-  //Guest filter
-
-  //не понимаю почему при === не работает фильтр , а с == работает
-  // eslint-disable-next-line eqeqeq
-  if(object.offer.guests == housingGuests.value){
-    rank++;
-  }
-
-  //checkbox filter
-  //не смог придумать как можно сделать фильтр с чебоксами, если можно получить совет или направление мыслей куда двигаться дальше =))
-  const checkBoxes = document.querySelectorAll('.map__checkbox');
-  checkBoxes.forEach((element) => {
-    if(checkFeature(object.offer.features, element.value)){
-      rank++;
+//features filter
+const filterFeatures = (ad) => {
+  const checkedFeatures = [];
+  housingFeatures.forEach((element) => {
+    if(element.checked){
+      checkedFeatures.push(element.value);
     }
   });
+  if(checkedFeatures.length > 0 && ad.offer.features === undefined){
+    return false;
+  }
 
-  return rank;
-}
-
-
-const compareObjects = (objA, objB) => {
-  const rankA = getObjectRank(objA);
-  const rankB = getObjectRank(objB);
-
-  return rankB - rankA;
+  return (checkedFeatures.every((element) => ad.offer.features.includes(element)));
 };
-export {compareObjects};
+
+// combine all filters
+const filterOffers = (ad) =>
+  filterType(ad) && filterPrice(ad) && filterRooms(ad) && filterGuests(ad) && filterFeatures(ad);
+
+// eslint-disable-next-line no-shadow
+const setChangeEventOnFilter = (putOnMap) => {
+  housingType.addEventListener('change', () => {
+    putOnMap();
+  });
+  housingPrice.addEventListener('change', () => {
+    putOnMap();
+  });
+  housingRooms.addEventListener('change', () => {
+    putOnMap();
+  });
+  housingGuests.addEventListener('change', () => {
+    putOnMap();
+  });
+  housingFeatures.forEach((element) => element.addEventListener('click', () => {
+    putOnMap();
+  }));
+};
+
+export {filterOffers, setChangeEventOnFilter, setAnyValue};
