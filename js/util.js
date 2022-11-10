@@ -68,10 +68,6 @@ const hideElement = function(key, object, elelement) {
   }
 };
 
-const resetForm = function() {
-  const form = document.querySelector('.ad-form');
-  form.reset();
-};
 
 //block and unblock button
 const submitButton = document.querySelector('.ad-form__submit');
@@ -115,7 +111,6 @@ export {hideElement,
   getRandomPositiveInteger,
   getRandomPositiveNumber,
   getRandomShuffledArray,
-  resetForm,
   unblockSubmitButton,
   blockSubmitButton,
   isEscapeKey,

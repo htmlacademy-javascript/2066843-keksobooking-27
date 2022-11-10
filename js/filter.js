@@ -12,16 +12,6 @@ const setAnyValue = (id) => {
   field.value = 'any';
 };
 
-const resetFilters = () => {
-  setAnyValue('housing-type');
-  setAnyValue('housing-price');
-  setAnyValue('housing-rooms');
-  setAnyValue('housing-guests');
-  const checkBoxes = document.querySelectorAll('map__features input');
-  checkBoxes.forEach((element) => {
-    element.checked = false;
-  });
-};
 
 // type filter
 const filterType = (ad) => {
@@ -105,4 +95,4 @@ const setChangeEventOnFilter = (putOnMap) => {
   }));
 };
 
-export {resetFilters, filterOffers, setChangeEventOnFilter};
+export {filterOffers, setChangeEventOnFilter, setAnyValue};
