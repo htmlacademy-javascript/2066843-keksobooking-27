@@ -20,14 +20,10 @@ const getCard = (element) => {
       const photoElement = apartmentElement.querySelector('.popup__photo').cloneNode(true);
       photoElement.src = photo;
       photoElement.alt = 'Фотография жилья';
-      photoElement.setAttribute('width', '45');
-      photoElement.setAttribute('height', '40');
       photoContainer.appendChild(photoElement);
     }
   }
   oldPhoto.remove();
-  // hideElement(element.offer.photos, element.offer, apartmentElement.querySelector('.popup__photos'));
-  // hideElement(element.offer.features, element.offer, apartmentElement.querySelector('.popup__features'));
   return apartmentElement;
 };
 

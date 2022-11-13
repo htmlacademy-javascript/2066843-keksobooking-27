@@ -1,6 +1,8 @@
 import { setAnyValue } from './filter.js';
 
-const resetForm = function() {
+const slider = document.querySelector('.ad-form__slider');
+
+const resetForm = () => {
   const form = document.querySelector('.ad-form');
   form.reset();
   const photoContainer = document.querySelector('.ad-form__photo');
@@ -20,11 +22,16 @@ const resetFilters = () => {
   });
 };
 
+const resetSlider = () => {
+  slider.noUiSlider.reset();
+};
+
 const reset = () => {
   const resetButton = document.querySelector('.ad-form__reset');
   resetButton.addEventListener('click', () => {
     resetFilters();
     resetForm();
+    resetSlider();
   });
 };
 

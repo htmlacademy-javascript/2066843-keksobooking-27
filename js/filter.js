@@ -1,10 +1,13 @@
-
+const LOW = 10000;
+const HIGH = 50000;
 
 const housingType = document.querySelector('#housing-type');
 const housingPrice = document.querySelector('#housing-price');
 const housingRooms = document.querySelector('#housing-rooms');
 const housingGuests = document.querySelector('#housing-guests');
-const housingFeatures = document.querySelectorAll('.map__checkbox');
+const sectionButtons = document.querySelectorAll('.map__filter');
+const housingCheckbox = document.querySelectorAll('.map__checkbox');
+const housingFeatures = Array.prototype.slice.call(housingCheckbox, 0);
 
 
 const setAnyValue = (id) => {
@@ -23,13 +26,14 @@ const filterType = (ad) => {
 };
 
 // price filter
+
 const getPrice = (element) => {
   const price = element.offer.price;
-  if(price < 10000){
+  if(price < LOW){
     return 'low';
-  }else if(price >= 10000 && price < 50000){
+  }else if(price >= LOW && price < HIGH){
     return 'middle';
-  }else if(price >= 50000) {
+  }else if(price >= HIGH) {
     return 'high';
   }
 };
@@ -57,14 +61,13 @@ const filterGuests = (ad) => {
   return ad.offer.guests == housingGuests.value;
 };
 
-//features filter
+// features filter
+function isChecked(element) {
+  return element.checked;
+}
 const filterFeatures = (ad) => {
-  const checkedFeatures = [];
-  housingFeatures.forEach((element) => {
-    if(element.checked){
-      checkedFeatures.push(element.value);
-    }
-  });
+  const checkedFeatures = housingFeatures.filter(isChecked).map((element) => element.value);
+
   if(checkedFeatures.length > 0 && ad.offer.features === undefined){
     return false;
   }
@@ -78,17 +81,10 @@ const filterOffers = (ad) =>
 
 // eslint-disable-next-line no-shadow
 const setChangeEventOnFilter = (putOnMap) => {
-  housingType.addEventListener('change', () => {
-    putOnMap();
-  });
-  housingPrice.addEventListener('change', () => {
-    putOnMap();
-  });
-  housingRooms.addEventListener('change', () => {
-    putOnMap();
-  });
-  housingGuests.addEventListener('change', () => {
-    putOnMap();
+  sectionButtons.forEach((button) => {
+    button.addEventListener('change', () => {
+      putOnMap();
+    });
   });
   housingFeatures.forEach((element) => element.addEventListener('click', () => {
     putOnMap();
