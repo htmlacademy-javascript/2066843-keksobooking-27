@@ -1,6 +1,5 @@
 import { getCard } from './element.js';
-import { pageActive } from './form.js';
-
+import { pageActive, pageDisabled} from './form.js';
 
 const address = document.querySelector('#address');
 const TOKYO_COORDINATES = {
@@ -8,11 +7,16 @@ const TOKYO_COORDINATES = {
   lng: 139.817413,
 };
 
-const map = L.map('map-canvas')
-  .setView({
-    lat: TOKYO_COORDINATES.lat,
-    lng: TOKYO_COORDINATES.lng,
-  }, 10);
+let map;
+try{
+  map = L.map('map-canvas')
+    .setView({
+      lat: TOKYO_COORDINATES.lat,
+      lng: TOKYO_COORDINATES.lng,
+    }, 10);
+}catch{
+  pageDisabled();
+}
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
