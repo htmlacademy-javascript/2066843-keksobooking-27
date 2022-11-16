@@ -1,7 +1,7 @@
-import { showError, showSuccess } from './err.js';
+import { getDataError, showError, showSuccess } from './err.js';
 import { resetForm } from './reset.js';
 
-const GET_DATA_ADDRESS = 'https://27.javascript.pages.academy/keksobooking/data';
+const GET_DATA_ADDRESS = 'https://2.javascript.pages.academy/keksobooking/data';
 const SEND_DATA_ADDRESS = 'https://27.javascript.pages.academy/keksobooking';
 
 const getData = (onSuccess) => {
@@ -9,6 +9,9 @@ const getData = (onSuccess) => {
     .then((response) => response.json())
     .then((objects) => {
       onSuccess(objects);
+    })
+    .catch(() => {
+      getDataError();
     });
 };
 

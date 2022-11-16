@@ -62,10 +62,8 @@ const getRandomShuffledArray = function(array) {
   return shuffled;
 };
 
-const hideElement = function(key, object, elelement) {
-  if(key in object){
-    elelement.classList.add('hidden');
-  }
+const hideElement = function(elelement) {
+  elelement.classList.add('hidden');
 };
 
 
