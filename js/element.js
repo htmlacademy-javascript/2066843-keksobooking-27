@@ -1,4 +1,4 @@
-// import { hideElement } from './util.js';
+import { hideElement } from './util.js';
 
 const getCard = (element) => {
   const templateFragment = document.querySelector('#card').content.querySelector('.popup');
@@ -10,7 +10,10 @@ const getCard = (element) => {
   apartmentElement.querySelector('.popup__type').textContent = element.offer.type;
   apartmentElement.querySelector('.popup__text--capacity').textContent = `${element.offer.rooms} комнаты для ${element.offer.guests} гостей`;
   apartmentElement.querySelector('.popup__text--time').textContent = `Заезд после ${element.offer.checkin}, выезд до ${element.offer.checkout}`;
-  apartmentElement.querySelector('.popup__features').textContent = element.offer.features;
+  const oldFeatures = apartmentElement.querySelector('.popup__features');
+  if(!Array.isArray(element.offer.features)){
+    hideElement(oldFeatures);
+  }
   apartmentElement.querySelector('.popup__description').textContent = element.offer.description;
   apartmentElement.querySelector('.popup__avatar').src = element.author.avatar;
   const oldPhoto = apartmentElement.querySelector('.popup__photo');

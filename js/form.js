@@ -2,12 +2,19 @@ import { sendData } from './api.js';
 const MIN = 0;
 const MAX = 100000;
 
-const PRICEBYTYPE = {
+const PriceByType = {
   'palace': 10000,
   'flat': 1000,
   'house': 5000,
   'bungalow': 0,
   'hotel': 3000,
+};
+
+const roomsGuests = {
+  '1': ['1'],
+  '2': ['1', '2'],
+  '3': ['1', '2', '3'],
+  '100': ['0']
 };
 
 const form = document.querySelector('.ad-form');
@@ -59,13 +66,6 @@ const pristine = new Pristine(form, {
 
 
 //Validate guests
-const roomsGuests = {
-  '1': ['1'],
-  '2': ['1', '2'],
-  '3': ['1', '2', '3'],
-  '100': ['0']
-};
-
 const validateGuests = () => roomsGuests[roomNumber.value].includes(capacity.value);
 
 const getGuestsErrorMessage = () => {
@@ -83,9 +83,9 @@ const getGuestsErrorMessage = () => {
 
 
 //Validate price and slider
-const validatePrice = () => PRICEBYTYPE[type.value] <= price.value && price.value < 100000;
+const validatePrice = () => PriceByType[type.value] <= price.value && price.value < 100000;
 
-const getPriceErrorMessage = () => `Minimal price for ${type.value} is ${PRICEBYTYPE[type.value]}`;
+const getPriceErrorMessage = () => `Minimal price for ${type.value} is ${PriceByType[type.value]}`;
 
 //slider
 noUiSlider.create(slider, {
@@ -111,11 +111,11 @@ slider.noUiSlider.on('update', () => {
 });
 
 const changeMinPrice = () => {
-  price.min = PRICEBYTYPE[type.value];
-  price.placeholder = PRICEBYTYPE[type.value];
+  price.min = PriceByType[type.value];
+  price.placeholder = PriceByType[type.value];
   slider.noUiSlider.updateOptions({
     range: {
-      min: PRICEBYTYPE[type.value],
+      min: PriceByType[type.value],
       max: MAX
     },
   });

@@ -1,4 +1,4 @@
-import { showError, showSuccess } from './err.js';
+import { getDataError, showError, showSuccess } from './error.js';
 import { resetForm } from './reset.js';
 
 const GET_DATA_ADDRESS = 'https://27.javascript.pages.academy/keksobooking/data';
@@ -9,6 +9,9 @@ const getData = (onSuccess) => {
     .then((response) => response.json())
     .then((objects) => {
       onSuccess(objects);
+    })
+    .catch(() => {
+      getDataError();
     });
 };
 

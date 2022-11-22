@@ -16,7 +16,7 @@ const resetFilters = () => {
   setAnyValue('housing-price');
   setAnyValue('housing-rooms');
   setAnyValue('housing-guests');
-  const checkBoxes = document.querySelectorAll('map__features input');
+  const checkBoxes = document.querySelectorAll('.map__features input');
   checkBoxes.forEach((element) => {
     element.checked = false;
   });

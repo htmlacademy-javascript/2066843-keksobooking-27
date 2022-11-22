@@ -1,9 +1,15 @@
 import {onErrorMessageEscKeydown, onSuccessMessageEscKeydown} from './util.js';
 //error message
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
+const getDataErrorTemplate = document.querySelector('#data-error').content.querySelector('.data-error');
+
 const newErrorMessage = errorTemplate.cloneNode(true);
 document.body.appendChild(newErrorMessage);
 newErrorMessage.classList.add('hidden');
+
+const dataError = getDataErrorTemplate.cloneNode(true);
+document.body.appendChild(dataError);
+dataError.classList.add('hidden');
 
 
 const hideError = () => {
@@ -22,6 +28,17 @@ const showError = () => {
   newErrorMessage.addEventListener('click', hideError);
 };
 
+const getDataError = () => {
+
+  dataError.classList.remove('hidden');
+
+  const errorButton = document.querySelector('.data-error__button');
+  errorButton.addEventListener('click', hideError);
+
+  document.addEventListener('keydown', onErrorMessageEscKeydown);
+
+  newErrorMessage.addEventListener('click', hideError);
+};
 
 //success message
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
@@ -49,4 +66,5 @@ export {
   hideError,
   showSuccess,
   hideSuccess,
+  getDataError,
 };
