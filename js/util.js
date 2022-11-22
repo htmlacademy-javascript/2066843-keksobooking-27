@@ -1,4 +1,6 @@
-import {hideError, hideSuccess} from './err.js';
+import {hideError, hideSuccess} from './error.js';
+
+const db = 500;
 
 
 function getRandomPositiveNumber() {
@@ -67,17 +69,6 @@ const hideElement = function(elelement) {
 };
 
 
-//block and unblock button
-const submitButton = document.querySelector('.ad-form__submit');
-
-const blockSubmitButton = () => {
-  submitButton.disabled = true;
-};
-
-const unblockSubmitButton = () => {
-  submitButton.disabled = false;
-};
-
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const onErrorMessageEscKeydown = (evt) => {
@@ -94,7 +85,7 @@ const onSuccessMessageEscKeydown = (evt) => {
   }
 };
 
-const debounce = (cb, timeoutDelay = 500) => {
+const debounce = (cb, timeoutDelay = db) => {
   let timeoutId;
   return (...rest) => {
     clearTimeout(timeoutId);
@@ -109,8 +100,6 @@ export {hideElement,
   getRandomPositiveInteger,
   getRandomPositiveNumber,
   getRandomShuffledArray,
-  unblockSubmitButton,
-  blockSubmitButton,
   isEscapeKey,
   onErrorMessageEscKeydown,
   onSuccessMessageEscKeydown,

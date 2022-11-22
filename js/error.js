@@ -1,12 +1,13 @@
 import {onErrorMessageEscKeydown, onSuccessMessageEscKeydown} from './util.js';
 //error message
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
+const getDataErrorTemplate = document.querySelector('#data-error').content.querySelector('.data-error');
 
 const newErrorMessage = errorTemplate.cloneNode(true);
 document.body.appendChild(newErrorMessage);
 newErrorMessage.classList.add('hidden');
 
-const dataError = errorTemplate.cloneNode(true);
+const dataError = getDataErrorTemplate.cloneNode(true);
 document.body.appendChild(dataError);
 dataError.classList.add('hidden');
 
@@ -28,14 +29,10 @@ const showError = () => {
 };
 
 const getDataError = () => {
-  const textError = dataError.querySelector('.error__message');
-  textError.textContent = 'Ошибка при отправление данных';
-  // eslint-disable-next-line no-console
-  console.log(textError.textContent);
 
   dataError.classList.remove('hidden');
 
-  const errorButton = document.querySelector('.error__button');
+  const errorButton = document.querySelector('.data-error__button');
   errorButton.addEventListener('click', hideError);
 
   document.addEventListener('keydown', onErrorMessageEscKeydown);

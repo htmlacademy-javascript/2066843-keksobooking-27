@@ -1,11 +1,11 @@
 import { getCard } from './element.js';
 import { pageActive, pageDisabled} from './form.js';
 
-const address = document.querySelector('#address');
 const TOKYO_COORDINATES = {
   lat: 35.672855,
   lng: 139.817413,
 };
+const address = document.querySelector('#address');
 
 let map;
 try{
@@ -85,7 +85,9 @@ const putOnMap = (objects) => {
 };
 
 const getCoordinates = function(element) {
-  address.value = `${element.lat}, ${element.lng}`;
+  const lat = element.lat.toFixed(5);
+  const lng = element.lng.toFixed(5);
+  address.value = `${lat}, ${lng}`;
 };
 
 mainMarker.on('moveend', (evt) => {

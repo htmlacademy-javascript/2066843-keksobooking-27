@@ -1,5 +1,3 @@
-// import { hideElement } from './util.js';
-
 import { hideElement } from './util.js';
 
 const getCard = (element) => {

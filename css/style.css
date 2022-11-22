@@ -944,7 +944,8 @@ fieldset {
  */
 
 .success,
-.error {
+.error,
+.data-error {
   position: fixed;
   top: 0;
   left: 0;
@@ -966,10 +967,18 @@ fieldset {
 }
 
 .success__message,
-.error__message {
+.error__message{
   position: relative;
 
   color: #ffffff;
+  font-size: 50px;
+  font-weight: 700;
+}
+
+.data-error__message{
+  position: relative;
+
+  color: #290fbd;
   font-size: 50px;
   font-weight: 700;
 }
@@ -996,6 +1005,54 @@ fieldset {
 
 .error__message::before {
   background-image: url("../img/muffin-red.svg");
+}
+
+.data-error__message::before {
+  content: "";
+  position: absolute;
+
+  top: -320px;
+  left: 50%;
+
+  width: 400px;
+  height: 400px;
+
+  background-image: url("../img/data-error.webp");
+  background-position: center;
+  background-repeat: no-repeat;
+
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+.data-error__button {
+  padding: 10px;
+
+  font-size: 22px;
+  font-weight: 700;
+
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+
+  color: white;
+  border: 4px solid #290fbd;
+  background-color: #290fbd;
+  border-radius: 8px;
+}
+
+.data-error__button:hover,
+.data-error__button:focus {
+  opacity: 0.8;
+}
+
+.data-error__button:focus {
+  outline: none;
+}
+
+.data-error__button:active {
+  outline: none;
+  opacity: 0.6;
 }
 
 .error__button {
